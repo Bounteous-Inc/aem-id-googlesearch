@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    cq:isContainer="{Boolean}false"
+    jcr:description="Searchbox Component that provides a simple input field to submit a search to Google Custom Search API"
+    jcr:primaryType="cq:Component"
+    jcr:title="Searchbox (Google Custom Search)"
+    componentGroup="General"/>
