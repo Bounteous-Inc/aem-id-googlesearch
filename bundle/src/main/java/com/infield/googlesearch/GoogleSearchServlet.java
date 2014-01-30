@@ -37,7 +37,7 @@ import com.google.api.services.customsearch.model.Search.SearchInformation;
 	{
 		@Property(
 			name = "service.pid",
-			value = "com.infield.ringcentral.services.SearchServlet"
+			value = "com.infield.googlesearch.GoogleSearchServlet"
 		),
 		@Property(
 			name = "service.vendor",
