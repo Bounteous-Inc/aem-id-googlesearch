@@ -58,7 +58,7 @@
                         <embedded>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>googlesearch-bundle</artifactId>
-                            <target>/apps/tools/install</target>
+                            <target>/apps/id-googlesearch/install</target>
                         </embedded>
                     </embeddeds>
                     <targetURL>http://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
