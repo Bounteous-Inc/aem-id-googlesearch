@@ -30,7 +30,10 @@ general info on installation
 
 ###Maven
 
-maven things here
+- To build and install the osgi bundle AND the components, from the root directory, run ``mvn -PautoInstallPackage clean install``.
+ 
+- To build and install *ONLY* the osgi bundle, from the bundle directory, run ``mvn -PautoInstallBundle clean install``.
+
 
 ###Package Manager
 
