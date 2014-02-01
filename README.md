@@ -1,30 +1,66 @@
-Google Custom Search
-========
+#Google Custom Search AEM integration
 
-This a content package project generated using the multimodule-content-package-archetype.
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/componentsOnPage.png)
 
-Building
---------
+## Table of Contents
 
-This project uses Maven for building. Common commands:
+[Introduction](#introduction)    
+[Installation](#installation)    
+&nbsp;&nbsp;&nbsp;&nbsp;[Maven](#maven)    
+&nbsp;&nbsp;&nbsp;&nbsp;[Package Manager](#package-manager)    
+[Configuration](#configuration)    
+&nbsp;&nbsp;&nbsp;&nbsp;[Servlet](#servlet)    
+&nbsp;&nbsp;&nbsp;&nbsp;[Search Box Component](#search-box-component)    
+&nbsp;&nbsp;&nbsp;&nbsp;[Search Result Component](#serch-result-component)    
+[Credits](#credits)     
 
-From the root directory, run ``mvn -PautoInstallPackage clean install`` to build the bundle and content package and install to a CQ instance.
+## Introduction
 
-From the bundle directory, run ``mvn -PautoInstallBundle clean install`` to build *just* the bundle and install to a CQ instance.
+This package provides a integration of Google Custom Search into AEM:
 
-Using with VLT
---------------
+- Search box component
+- Search result component
+- Flexible servlet configuration
 
-To use vlt with this project, first build and install the package to your local CQ instance as described above. Then cd to `content/src/main/content/jcr_root` and run
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/componentHighlight.png)
 
-    vlt --credentials admin:admin checkout -f ../META-INF/vault/filter.xml --force http://localhost:4502/crx
+## Installation
 
-Once the working copy is created, you can use the normal ``vlt up`` and ``vlt ci`` commands.
+general info on installation
 
-Specifying CRX Host/Port
-------------------------
+###Maven
 
-The CRX host and port can be specified on the command line with:
-mvn -Dcrx.host=otherhost -Dcrx.port=5502 <goals>
+maven things here
 
+###Package Manager
 
+Link to ID site to download package
+
+##Configuration
+
+General intro on how easy it is to configure + some google pe-requisistes
+
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/cseTurnedOn.png)
+
+###Servlet
+
+How to configure the servlet
+
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/osgiConfig.png)
+
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/servletRawResult.png)
+
+###Search Box Component
+
+How to configure the search box component
+
+###Search Result Component
+
+How to configure the search result component
+
+##Credits
+
+Gaetan Marmasse
+gaetan@infielddesign.com
+Infield Design 
+www.infielddesign.com
