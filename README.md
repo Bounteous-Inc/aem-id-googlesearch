@@ -64,6 +64,9 @@ How to configure the search result component
 ##Credits
 
 Gaetan Marmasse
+
 gaetan@infielddesign.com
+
 Infield Design 
-www.infielddesign.com
+
+http://www.infielddesign.com
