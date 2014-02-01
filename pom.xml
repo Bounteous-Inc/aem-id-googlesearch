@@ -104,15 +104,16 @@
 		It would be best if you proxied the Adobe repository using a Maven Repository 
 		Manager. Once you do that, remove these sections. -->
 	<repositories>
-		<repository>
-			<id>google-api-services</id>
-			<url>https://oss.sonatype.org/content/repositories/releases/</url>
-		</repository>
+		
 		<repository>
 			<id>adobe</id>
 			<name>Adobe Public Repository</name>
 			<url>http://repo.adobe.com/nexus/content/groups/public/</url>
 			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>google-api-services</id>
+			<url>https://oss.sonatype.org/content/repositories/releases/</url>
 		</repository>
 
 	</repositories>
