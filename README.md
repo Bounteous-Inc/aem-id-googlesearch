@@ -1,6 +1,6 @@
 #Google Custom Search AEM integration
 
-![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/componentsOnPage.png)
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/master/documents/wiki/images/componentsOnPage.png)
 
 ## Table of Contents
 
@@ -22,7 +22,7 @@ This package provides a integration of Google Custom Search into AEM:
 - Search result component
 - Flexible servlet configuration
 
-![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/componentHighlight.png)
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/master/documents/wiki/images/componentHighlight.png)
 
 ## Installation
 
@@ -40,15 +40,15 @@ Link to ID site to download package
 
 General intro on how easy it is to configure + some google pe-requisistes
 
-![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/cseTurnedOn.png)
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/master/documents/wiki/images/cseTurnedOn.png)
 
 ###Servlet
 
 How to configure the servlet
 
-![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/osgiConfig.png)
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/master/documents/wiki/images/osgiConfig.png)
 
-![image](https://raw.github.com/infielddesign/aem-id-googlesearch/documents/wiki/images/servletRawResult.png)
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/master/documents/wiki/images/servletRawResult.png)
 
 ###Search Box Component
 
