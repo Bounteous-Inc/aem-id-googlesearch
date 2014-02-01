@@ -22,7 +22,7 @@ This package provides a integration of Google Custom Search into AEM:
 - Search result component
 - Flexible servlet configuration
 
-![image](https://raw.github.com/infielddesign/aem-id-googlesearch/master/documents/wiki/images/componentHighlight.png)
+![image](https://raw.github.com/infielddesign/aem-id-googlesearch/master/documents/wiki/images/componentsHighlight.png)
 
 ## Installation
 
