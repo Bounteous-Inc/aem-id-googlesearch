@@ -1,7 +1,7 @@
 <%@ include file="/apps/id-googlesearch/components/global.jsp" %>
 <%@page session="false" %>
 
-<cq:includeClientLib categories="infield.components.id-googlesearch" />
+<cq:includeClientLib categories="infield.components.id-googlesearch.searchresult" />
 <div class="homeFrame" align=center>
 	<div class="left_part">
 		<div class="main_bl">
