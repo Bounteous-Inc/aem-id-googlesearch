@@ -1,3 +1,13 @@
-li .resultItem {
-	list-style:none;
+ul.resultList {
+	list-style: none;
+	padding-top: 10px;
+}
+
+li.resultItem {
+	padding-top: 10px;
+}
+
+li.resultItem a {
+	font-size: 14px;
+	font-weight: bold;
 }

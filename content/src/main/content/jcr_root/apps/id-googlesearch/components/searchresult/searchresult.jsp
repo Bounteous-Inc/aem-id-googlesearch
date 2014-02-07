@@ -14,8 +14,9 @@
 <ul class="resultList">
 <c:forEach items="${resultList.resultItems}" var="resultItem" varStatus="loop">
 			<li class="resultItem">
-				<a href="${resultItem.link}">${resultItem.title}</a><br/>
+				<a href="${resultItem.link}" title="${resultItem.title}">${resultItem.title}</a><br/>
 				<p>${resultItem.htmlSnippet}</p>
+				<p>${resultItem.htmlFormattedUrl}</p>
 			</li>
 </c:forEach>
 </c:if>
