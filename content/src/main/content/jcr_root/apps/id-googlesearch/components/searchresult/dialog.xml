@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Dialog"
-    title="Raw HTML Dialog"
+    title="Google Custom Search Results"
     xtype="dialog">
     <items
         jcr:primaryType="cq:Widget"
@@ -9,21 +9,16 @@
         <items jcr:primaryType="cq:WidgetCollection">
             <tab1
                 jcr:primaryType="cq:Panel"
-                title="HTML / JS / CSS Code">
+                title="Options">
                 	<items jcr:primaryType="cq:WidgetCollection">
-                		<title
-			            	jcr:primaryType="cq:Widget"
-			                fieldDescription="Specify a title for this HTML code so it can be identified in Author mode (not displayed in publish runmode)"
-			                fieldLabel="Title"
-			                name="./title"
-			                xtype="textfield"/>
-	                    <rawHTML
-			            	jcr:primaryType="cq:Widget"
-			                fieldDescription=""
-			                fieldLabel=""
-			                style="height:200px;"
-			                name="./rawHTML"
-			                xtype="textarea"/>
+                		<showSearchBox
+		                    jcr:primaryType="cq:Widget"
+		                    defaultValue=""
+		                    fieldDescription="Displays the search input field above the results"
+		                    fieldLabel="Show Search Box"
+		                    name="./showSearchBox"
+		                    type="checkbox"
+		                    xtype="selection"/>
 	                </items>
                 </tab1>
         </items>
