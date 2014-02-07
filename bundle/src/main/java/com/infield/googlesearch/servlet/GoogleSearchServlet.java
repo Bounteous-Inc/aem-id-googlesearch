@@ -1,4 +1,4 @@
-package com.infield.googlesearch;
+package com.infield.googlesearch.servlet;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -111,6 +111,7 @@ public class GoogleSearchServlet extends SlingAllMethodsServlet {
 			list.setCx(requestedPath.equals(searchServletPath) ? cx : kb_cx);
 			Search results = list.execute();
 			SearchInformation searchInformation = results.getSearchInformation();
+			
 			Long totalResults = searchInformation.getTotalResults();
 			Long totalPages = new BigDecimal(totalResults).divide(new BigDecimal(num), RoundingMode.UP).longValue();
 			jsonObject.put("startPage", getStartPage(actualPage));
