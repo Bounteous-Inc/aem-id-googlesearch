@@ -5,24 +5,19 @@
  */
 package com.infield.googlesearch;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Dictionary;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.servlet.ServletException;
-
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
+import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.SlingHttpServletResponse;
-import org.apache.sling.api.servlets.SlingAllMethodsServlet;
-import org.apache.sling.commons.json.JSONObject;
 import org.apache.sling.commons.osgi.PropertiesUtil;
+import org.apache.sling.jcr.api.SlingRepository;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,148 +34,111 @@ import com.google.api.services.customsearch.model.Search.SearchInformation;
 import com.infield.googlesearch.model.ResultItem;
 import com.infield.googlesearch.model.ResultList;
 
-@Component(immediate = true, metatype = true)
+
+@Component(
+		label = "Google Custom Search Service", 
+		description = "Service used to call Google Custom Services.",
+		immediate = true, 
+		metatype = true)
 @Service(GoogleSearchService.class)
 @Properties({
 	@Property(name = Constants.SERVICE_VENDOR, value = "Infield"),
 	@Property(name = Constants.SERVICE_DESCRIPTION, value = "Google Custom Search service")
+	 , 
+	 @Property(
+	 label = "Application Name", 
+	 name = "cse.application.name", 
+	 value = "",
+	 description = "Be sure to specify the name of your application. "
+	 + "If the application name is null or blank, the application "
+	 + "will log a warning. Suggested format is "
+	 + "'MyCompany-ProductName/1.0'.")
+	 ,
+	 @Property(
+	 label = "API Key",
+	 name = "cse.api.key", 
+	 value = "", 
+	 description = "API Key for the registered developer project for your application.")
+	 ,
+	 @Property(
+	 label = "Context",
+	 name = "cse.cx",
+	 value = "", 
+	 description = "The main search engine ID to scope the search query")
+	 ,
+	 @Property(
+	 label = "Number", 
+	 name = "cse.num",
+	 value = "", 
+	 description = "Number of search results to return per page (integer)")
+	 ,
+	 @Property(
+	 label = "Pages", 
+	 name = "cse.pages",
+	 value = "10", 
+	 description = "Number of pages to show (integer)")
 })
-public class GoogleSearchService {
-	
+public class GoogleSearchService  {
+
 	private final Logger log = LoggerFactory.getLogger(getClass());
-	//TODO: set servlet path dynamically here or fix it in servlet class @Property
-	public static final String searchServletPath = "/services/SearchServlet";
-	
-	@Property(label = "Application Name", description = "Be sure to specify the name of your application. "
-			+ "If the application name is null or blank, the application will log a warning. "
-			+ "Suggested format is 'MyCompany-ProductName/1.0'.")
-	private static final String APPLICATIONNAME = "cse.application.name";
 
-	@Property(label = "API Key", description = "API Key for the registered developer project for your application.")
-	private static final String APIKEY = "cse.api.key";
-	
-
-	@Property(label = "Context", description = "The main search engine ID to scope the search query")
-	private static final String CX = "cse.cx";
-	
-	@Property(label = "Number", description = "Number of search results to return per page (integer)")
-	private static final String NUM = "cse.num";
-	
-	@Property(label = "Pages", description = "Number of pages to show (integer)")
-	private static final String PAGES = "cse.pages";
-	
-	private String apikey;
-	private String applicationname;
-	private String cx;
-	private String pages;
-	private Long num;
-	private Long pagesToShow;
-	
-	private Long pagesRight;
-	private Long pagesLeft;
-	
+	public static String apikey = "";
+	public static String applicationname = "";
+	public static String cx = "";
+	public static Long num = 7l;
+	public static Long pagesToShow = 10l;
+	public static Long pagesRight;
+	public static Long pagesLeft;
 	private Customsearch customsearch;
-	
-	
 	private LinkedList<ResultItem> resultItems;
-	
-	 	public String getApikey() {
-	        return apikey;
-	    }
 
-	    public String getApplicationname() {
-	        return applicationname;
-	    }
-	    
-	    public String getCx(){
-	    	return cx;
-	    }
-	    
-	    public long getNum(){
-	    	return num;
-	    }
-	    
-	    public long getPagesToShow(){
-	    	return pagesToShow;
-	    }
-	    
-	    public String getPages(){
-	    	return pages;
-	    }
-	    
-	
 	static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	private static final long serialVersionUID = 1L;
 
 	
-	public GoogleSearchService(){
-		
-	}
-//	
-//	public GoogleSearchService(SlingHttpServletRequest request, SlingHttpServletResponse response){
-//		this.request = request;
-//		this.response = response;
-//		
-//	}
-	
+	@Reference
+	private SlingRepository repository;
+
 	@Activate
-	protected void activate(ComponentContext ctx) throws Exception {
-		try {
-			this.apikey = PropertiesUtil.toString(ctx.getProperties().get(APIKEY), "");
-			this.applicationname = PropertiesUtil.toString(ctx.getProperties().get(APPLICATIONNAME), "");
-			this.cx = PropertiesUtil.toString(ctx.getProperties().get(CX), "");
-			this.num = PropertiesUtil.toLong(ctx.getProperties().get(NUM), 7l);
-			this.pagesToShow = PropertiesUtil.toLong(ctx.getProperties().get(PAGES), 10l);
-			this.pagesLeft = new BigDecimal(this.pagesToShow).divide(new BigDecimal(2), RoundingMode.UP).longValue();
-			this.pagesRight = new BigDecimal(this.pagesToShow).divide(new BigDecimal(2), RoundingMode.DOWN).longValue();
-			log.error("GAETAN 1 => " + JSON_FACTORY);
-			
-			log.error("GAETAN 3 => " + applicationname);
-			this.customsearch = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY,	null)
-					.setApplicationName(applicationname)
-					.setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apikey))
-					.build();
-			log.error("GAETAN 6 => " + customsearch);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
+	protected void activate(ComponentContext componentContext){
+		configure(componentContext.getProperties());
 	}
 	
+	
+	protected void configure(Dictionary<?, ?> properties) {
+		GoogleSearchService.apikey = PropertiesUtil.toString(properties.get("cse.api.key"), apikey);
+		GoogleSearchService.applicationname = PropertiesUtil.toString(properties.get("cse.application.name"), applicationname);
+		GoogleSearchService.cx = PropertiesUtil.toString(properties.get("cse.cx"),cx);
+		GoogleSearchService.num = PropertiesUtil.toLong(properties.get("cse.num"), num);
+		GoogleSearchService.pagesToShow = PropertiesUtil.toLong(properties.get("cse.pages"), pagesToShow);
+		GoogleSearchService.pagesLeft = new BigDecimal(pagesToShow).divide(new BigDecimal(2), RoundingMode.UP).longValue();
+		GoogleSearchService.pagesRight = new BigDecimal(pagesToShow).divide(new BigDecimal(2), RoundingMode.DOWN).longValue();
+	 }
+
+
 	public ResultList getResults(String q, String currentTab) {
 		//TODO: do XSS protection on Q
-		//String requestedPath = this.request.getRequestURI();
-		//String q = this.request.getParameter("q");
-		//String currentTab = request.getParameter("currentTab") != null ? this.request.getParameter("currentTab") : "1";
 		ResultList resultList = new ResultList();
+
 		try {
-			//TODO: gete data from OSGI config. Hardcoded for now
-			this.apikey = "AIzaSyBGXeDegpobGIktqKTZHqgD5moXrCjtECQ";
-			this.applicationname = "InfieldDesign-GoogleSearchAEM/1.0";
-			this.cx = "009552797787203508820:4sf6qp_bvqu";
-			this.num = 7l;
-			this.pagesToShow = 10l;
-			this.pagesLeft = new BigDecimal(this.pagesToShow).divide(new BigDecimal(2), RoundingMode.UP).longValue();
-			this.pagesRight = new BigDecimal(this.pagesToShow).divide(new BigDecimal(2), RoundingMode.DOWN).longValue();
-			
-			customsearch = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY,	null)
-			.setApplicationName(this.applicationname)
-			.setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(this.apikey))
+			customsearch = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, null)
+			.setApplicationName(applicationname)
+			.setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apikey))
 			.build();
 			Long actualPage = Long.valueOf(currentTab);
 			com.google.api.services.customsearch.Customsearch.Cse.List list = customsearch.cse().list(q);
 			
-			list.setNum(this.num);
-			list.setStart((this.num * (actualPage - 1)) + 1);
-			list.setCx(this.cx);
+			list.setNum(num);
+			list.setStart((num * (actualPage - 1)) + 1);
+			list.setCx(cx);
 			Search results = list.execute();
 			SearchInformation searchInformation = results.getSearchInformation();
-			
-			
-			this.resultItems = new LinkedList<ResultItem>();
-			
+
+			resultItems = new LinkedList<ResultItem>();
+
 			if (searchInformation != null){
 				Long totalResults = searchInformation.getTotalResults();
-				Long totalPages = new BigDecimal(totalResults).divide(new BigDecimal(this.num), RoundingMode.UP).longValue();
+				Long totalPages = new BigDecimal(totalResults).divide(new BigDecimal(num), RoundingMode.UP).longValue();
 				resultList.setTotalPages(totalPages);
 				resultList.setTotalResults(searchInformation.getTotalResults());
 				resultList.setFormattedSearchTime(searchInformation.getFormattedSearchTime());
@@ -189,8 +147,8 @@ public class GoogleSearchService {
 				resultList.setStartPage(getStartPage(actualPage));
 				resultList.setEndPage(getEndPage(actualPage,totalPages));
 				resultList.setCurrentTab(actualPage);
-				
-				
+
+
 				List <Result> searchResults = results.getItems();
 				for (Result searchResult: searchResults){
 					ResultItem resultItem = new ResultItem();
@@ -209,10 +167,10 @@ public class GoogleSearchService {
 					resultItem.setTitle(searchResult.getTitle());
 					resultItems.add(resultItem);
 				}
-				
-				
+
+
 				resultList.setResultItems(resultItems);
-				
+
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -235,6 +193,6 @@ public class GoogleSearchService {
 		return actualPage-pagesLeft;
 	}
 
-	
+
 
 }

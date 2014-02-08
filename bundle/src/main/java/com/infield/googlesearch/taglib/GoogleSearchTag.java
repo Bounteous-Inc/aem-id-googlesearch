@@ -16,6 +16,7 @@ import java.util.LinkedList;
 
 import javax.servlet.jsp.JspException;
 
+import org.apache.sling.api.scripting.SlingScriptHelper;
 import org.osgi.service.component.ComponentContext;
 
 import com.infield.googlesearch.GoogleSearchService;
