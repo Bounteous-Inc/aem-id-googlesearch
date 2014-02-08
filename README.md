@@ -63,10 +63,10 @@ How to configure the search result component
 
 ##Credits
 
-Gaetan Marmasse
-
-gaetan@infielddesign.com
-
 Infield Design 
 
 http://www.infielddesign.com
+
+Gaetan Marmasse
+
+gaetan@infielddesign.com
