@@ -70,4 +70,4 @@ http://www.infielddesign.com
 Gaetan Marmasse
 
 gaetan@infielddesign.com
-[![Analytics](https://ga-beacon.appspot.com/UA-47888627-1/aem-id-googlesearch/readme?pixel)](https://github.com/infielddesign/aem-id-googlesearch)
+[![Analytics](https://ga-beacon.appspot.com/UA-47888627-1/aem-id-googlesearch/readme)](https://github.com/infielddesign/aem-id-googlesearch)
