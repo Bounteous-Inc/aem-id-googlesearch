@@ -29,6 +29,22 @@
                 jcr:primaryType="cq:Panel"
                 title="Options">
                 	<items jcr:primaryType="cq:WidgetCollection">
+               			<numberOfResults
+						    jcr:primaryType="cq:Widget"
+						    fieldLabel="Number of results per page"
+						    defaultValue="10"
+						    name="./numberOfResults"
+						    regex="/^([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/"
+						    regexText="Please enter a valid number between 1 and 255."
+						    xtype="textfield"/>
+						<numberOfPages
+						    jcr:primaryType="cq:Widget"
+						    defaultValue="7"
+						    fieldLabel="Number of result pages"
+						    name="./numberOfPages"
+						    regex="/^([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/"
+						    regexText="Please enter a valid number between 1 and 255."
+						    xtype="textfield"/>
                 		<showSearchBox
 		                    jcr:primaryType="cq:Widget"
 		                    defaultValue=""

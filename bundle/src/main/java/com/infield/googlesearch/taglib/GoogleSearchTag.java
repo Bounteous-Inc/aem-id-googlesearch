@@ -38,29 +38,74 @@ public class GoogleSearchTag extends SimpleTagSupport {
 
 	private String q;
 	private String currentTab;
+	private long numberOfResults;
+	private long numberOfPages;
 	
 	
 	@Override
 	public void doTag() throws JspException, IOException {
-		if (this.q.length() > 0 && this.currentTab.length() > 0){
+		if (this.q.length() > 0 && this.currentTab.length() > 0 && this.numberOfResults > 0 && this.numberOfPages > 0){
 			GoogleSearchService googleService = new GoogleSearchService();
-			ResultList resultList = googleService.getResults(q, currentTab);
+			ResultList resultList = googleService.getResults(q, currentTab, numberOfResults, numberOfPages);
 			LinkedList<ResultItem> resultItems = resultList.getResultItems();
 			getJspContext().setAttribute("resultList",resultList);
 			getJspContext().setAttribute("resultItems",resultItems);
 		}
 	}
 	
+	/**
+	 * @return the q, the query
+	 */
 	public String getQ(){
 		return q;
 	}
+	
+	/**
+	 * @param q the query to set
+	 */
 	public void setQ(String q){
 		this.q = q;
 	}
+	
+	/**
+	 * @return the currentTab
+	 */
 	public String getCurrentTab(){
 		return currentTab;
 	}
+	
+	/**
+	 * @param currentTab the currentTab to set
+	 */
 	public void setCurrentTab(String currentTab){
 		this.currentTab = currentTab;
+	}
+
+	/**
+	 * @return the numberOfResults
+	 */
+	public long getNumberOfResults() {
+		return numberOfResults;
+	}
+
+	/**
+	 * @param numberOfResults the numberOfResults to set
+	 */
+	public void setNumberOfResults(long numberOfResults) {
+		this.numberOfResults = numberOfResults;
+	}
+
+	/**
+	 * @return the numberOfPages
+	 */
+	public long getNumberOfPages() {
+		return numberOfPages;
+	}
+
+	/**
+	 * @param numberOfPages the numberOfPages to set
+	 */
+	public void setNumberOfPages(long numberOfPages) {
+		this.numberOfPages = numberOfPages;
 	}
 }

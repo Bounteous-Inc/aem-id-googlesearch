@@ -38,5 +38,15 @@
 	      <required>true</required>
 	      <rtexprvalue>true</rtexprvalue>
 	    </attribute>
+	    <attribute>
+	      <name>numberOfResults</name>
+	      <required>true</required>
+	      <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	      <name>numberOfPages</name>
+	      <required>true</required>
+	      <rtexprvalue>true</rtexprvalue>
+	    </attribute>
     </tag>
 </taglib>

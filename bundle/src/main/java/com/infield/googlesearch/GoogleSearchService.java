@@ -79,18 +79,6 @@ import com.infield.googlesearch.model.ResultList;
 	 name = "cse.cx",
 	 value = "", 
 	 description = "The main search engine ID to scope the search query")
-	 ,
-	 @Property(
-	 label = "Number", 
-	 name = "cse.num",
-	 value = "", 
-	 description = "Number of search results to return per page (integer)")
-	 ,
-	 @Property(
-	 label = "Pages", 
-	 name = "cse.pages",
-	 value = "10", 
-	 description = "Number of pages to show (integer)")
 })
 public class GoogleSearchService  {
 
@@ -101,8 +89,8 @@ public class GoogleSearchService  {
 	public static String cx = "";
 	public static Long num = 7l;
 	public static Long pagesToShow = 10l;
-	public static Long pagesRight;
-	public static Long pagesLeft;
+	private Long pagesRight;
+	private Long pagesLeft;
 	private Customsearch customsearch;
 	private LinkedList<ResultItem> resultItems;
 
@@ -123,18 +111,18 @@ public class GoogleSearchService  {
 		GoogleSearchService.apikey = PropertiesUtil.toString(properties.get("cse.api.key"), apikey);
 		GoogleSearchService.applicationname = PropertiesUtil.toString(properties.get("cse.application.name"), applicationname);
 		GoogleSearchService.cx = PropertiesUtil.toString(properties.get("cse.cx"),cx);
-		GoogleSearchService.num = PropertiesUtil.toLong(properties.get("cse.num"), num);
-		GoogleSearchService.pagesToShow = PropertiesUtil.toLong(properties.get("cse.pages"), pagesToShow);
-		GoogleSearchService.pagesLeft = new BigDecimal(pagesToShow).divide(new BigDecimal(2), RoundingMode.UP).longValue();
-		GoogleSearchService.pagesRight = new BigDecimal(pagesToShow).divide(new BigDecimal(2), RoundingMode.DOWN).longValue();
 	 }
 
 
-	public ResultList getResults(String q, String currentTab) {
+	public ResultList getResults(String q, String currentTab, long num, long pagesToShow) {
 		//TODO: do XSS protection on Q
 		ResultList resultList = new ResultList();
 
 		try {
+			
+			pagesLeft = new BigDecimal(pagesToShow).divide(new BigDecimal(2), RoundingMode.UP).longValue();
+			pagesRight = new BigDecimal(pagesToShow).divide(new BigDecimal(2), RoundingMode.DOWN).longValue();
+			
 			customsearch = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, null)
 			.setApplicationName(applicationname)
 			.setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apikey))
