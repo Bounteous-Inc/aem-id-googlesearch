@@ -30,3 +30,11 @@ li.resultItem a {
 	font-size: 14px;
 	font-weight: bold;
 }
+
+#pagination {
+	margin-top: 20px;
+}
+
+#pagination .active_page{
+	color:#000;
+}
