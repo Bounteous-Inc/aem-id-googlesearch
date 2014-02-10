@@ -33,8 +33,12 @@
 		<a class="lens" onclick="return runClickSearch(this);"></a>
 	</div>
 </c:if>
+<h2></h2>
 <c:if test="${not empty param.q}">
-	<infield:customsearch q="${param.q}" currentTab="1" />
+	<infield:customsearch q="${param.q}"
+		currentTab="${empty param.currentTab ? 1 : param.currentTab}"
+		numberOfResults="${empty properties.numberOfResults ? 10 : properties.numberOfResults}"
+		numberOfPages="${empty properties.numberOfPages ? 7 : properties.numberOfPages}" />
 	<h1>Total Results for ${param.q}: ${resultList.totalResults}</h1>
 	<ul class="resultList">
 		<c:forEach items="${resultList.resultItems}" var="resultItem"
@@ -47,13 +51,33 @@
 </c:if>
 
 </ul>
-<div class="homeFrame" align=center>
-	<div class="left_part">
-		<div class="main_bl">
-			<div id="paginator" class="paginator"></div>
-		</div>
-	</div>
+
+<div id="pagination" class="pagination">
+	<c:if test="${param.currentTab > 1}">
+		<a class="gm_tablink"
+			href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab -1}"/></cq:requestURL>">&lt;
+			Previous</a>
+	</c:if>
+	<c:forEach begin="${resultList.startPage}" end="${resultList.endPage}"
+		varStatus="loop">
+		<c:choose>
+			<c:when test="${param.currentTab == loop.index}">
+				<a class="gm_tablink gm_tablink_num active_page" href="#"
+					onClick="return false;" />${loop.index}</a>
+			</c:when>
+			<c:otherwise>
+				<a class="gm_tablink"
+					href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${loop.index}"/></cq:requestURL>">${loop.index}</a>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+	<c:if test="${param.currentTab < reultList.totalPages}">
+		<a class="gm_tablink"
+			href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab + 1}"/></cq:requestURL>">&gt;
+			Next</a>
+	</c:if>
 </div>
+
 
 
 
