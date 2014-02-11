@@ -25,9 +25,7 @@
 
 <infield:inheritance resource="${resource}" propertyName="resultPage" defaultValue="" />
 
-<h1> Something ${inheritedPropertyValue} </h1>
-
-<form class="search" action="${properties.resultPage}" method="get">
+<form class="search" action="${inheritedPropertyValue}.html" method="get">
 	<input class="submit_search" type="submit" value="Search" name="Submit">
 	<input type="text" class="input" name="q" value="Search" onfocus="if(this.value=='Search')this.value='';" onblur="if(this.value.trim()=='')this.value='Search';" />
 	<script>String.prototype.trim=function(){return(this.replace(/(^\s+)|(\s+$)/g, ""))}</script>
