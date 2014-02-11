@@ -19,14 +19,14 @@
 
 package com.infield.googlesearch.taglib;
 
+import java.io.IOException;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
-import java.io.IOException;
-import javax.servlet.jsp.JspException;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 public class GoogleSearchInheritanceTag extends SimpleTagSupport {
 

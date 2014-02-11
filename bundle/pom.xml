@@ -125,10 +125,23 @@
 			<version>2.2.1-b03</version>
 		</dependency>
 		<dependency>
-			<groupId>com.day.cq</groupId>
-			<artifactId>cq-commons</artifactId>
-			<version>5.7.4</version>
-		</dependency>
+             <groupId>com.day.cq</groupId>
+            <artifactId>cq-commons</artifactId>
+            <version>5.6.2</version>
+            <scope>provided</scope>
+            </dependency>
+            <dependency>
+            <groupId>com.day.cq.wcm</groupId>
+            <artifactId>cq-wcm-commons</artifactId>
+            <version>5.6.2</version>
+            <scope>provided</scope>
+            </dependency>
+            <dependency>
+            <groupId>com.day.cq.wcm</groupId>
+            <artifactId>cq-wcm-api</artifactId>
+            <version>5.6.2</version>
+            <scope>provided</scope>
+            </dependency>
 	</dependencies>
 
 	<!-- ====================================================================== -->

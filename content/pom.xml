@@ -43,6 +43,11 @@
             <artifactId>googlesearch-bundle</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+			<groupId>com.day.cq</groupId>
+			<artifactId>cq-commons</artifactId>
+			<version>5.7.4</version>
+		</dependency>
     </dependencies>
     <build>
         <resources>
