@@ -142,6 +142,7 @@ public class GoogleSearchService  {
 				Long totalResults = searchInformation.getTotalResults();
 				Long totalPages = new BigDecimal(totalResults).divide(new BigDecimal(num), RoundingMode.UP).longValue();
 				resultList.setTotalPages(totalPages);
+				resultList.setPagesToShow(pagesToShow);
 				resultList.setTotalResults(searchInformation.getTotalResults());
 				resultList.setFormattedSearchTime(searchInformation.getFormattedSearchTime());
 				resultList.setFormattedTotalResults(searchInformation.getFormattedTotalResults());
@@ -181,11 +182,11 @@ public class GoogleSearchService  {
 	}
 
 	private Long getEndPage(Long actualPage, Long totalPages) {
-		if (totalPages <= 10l || (actualPage + (pagesRight - 1)) > totalPages) {
+		if (totalPages <= pagesToShow || (actualPage + (pagesRight - 1)) > totalPages) {
 			return totalPages;
 		}
-		if (actualPage + (pagesRight - 1) <= 10l) {
-			return 10l;
+		if (actualPage + (pagesRight - 1) <= pagesToShow) {
+			return pagesToShow;
 		}
 		return actualPage + (pagesRight - 1);
 	}
