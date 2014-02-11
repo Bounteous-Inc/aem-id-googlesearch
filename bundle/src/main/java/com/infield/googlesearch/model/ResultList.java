@@ -29,6 +29,7 @@ public class ResultList {
 	private String formattedTotalResults;
 	private long totalResults;
 	private long totalPages;
+	private long pagesToShow;
 	private long startPage;
 	private long endPage;
 	private long currentTab;
@@ -168,5 +169,17 @@ public class ResultList {
 	 */
 	public void setCurrentTab(long currentTab) {
 		this.currentTab = currentTab;
+	}
+	
+	/**
+	 * @return the pagesToShow
+	 */
+	public long getPagesToShow() {
+		return pagesToShow;
+	}
+
+	public void setPagesToShow(long pagesToShow) {
+		this.pagesToShow = pagesToShow;
+		
 	}
 }

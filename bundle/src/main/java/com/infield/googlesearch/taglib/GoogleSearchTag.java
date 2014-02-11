@@ -20,15 +20,9 @@
 package com.infield.googlesearch.taglib;
 
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-
 import java.io.IOException;
 import java.util.LinkedList;
-
 import javax.servlet.jsp.JspException;
-
-import org.apache.sling.api.scripting.SlingScriptHelper;
-import org.osgi.service.component.ComponentContext;
-
 import com.infield.googlesearch.GoogleSearchService;
 import com.infield.googlesearch.model.ResultItem;
 import com.infield.googlesearch.model.ResultList;

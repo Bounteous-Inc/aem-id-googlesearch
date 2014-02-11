@@ -124,6 +124,11 @@
 			<artifactId>jsp-api</artifactId>
 			<version>2.2.1-b03</version>
 		</dependency>
+		<dependency>
+			<groupId>com.day.cq</groupId>
+			<artifactId>cq-commons</artifactId>
+			<version>5.7.4</version>
+		</dependency>
 	</dependencies>
 
 	<!-- ====================================================================== -->

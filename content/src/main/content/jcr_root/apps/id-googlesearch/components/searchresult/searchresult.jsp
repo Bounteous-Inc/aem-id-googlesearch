@@ -28,18 +28,21 @@
 
 <c:if test="${not empty properties.showSearchBox}">
 	<div class="over_ipup_bl">
-		<input class="inpute_search" type=text id="q" name="q"
-			value="${param.q}" onkeypress="return runSearch(event, this);">
-		<a class="lens" onclick="return runClickSearch(this);"></a>
+		<form action="<cq:requestURL><cq:removeParam name="q"/><cq:removeParam name="currentTab"/></cq:requestURL>">
+			<input class="inpute_search" type=text id="q" name="q" value="${param.q}">
+			<input class="submit_search" type="submit" value="Search" name="Submit">
+		</form>
 	</div>
 </c:if>
-<h2></h2>
+
 <c:if test="${not empty param.q}">
 	<infield:customsearch q="${param.q}"
 		currentTab="${empty param.currentTab ? 1 : param.currentTab}"
 		numberOfResults="${empty properties.numberOfResults ? 10 : properties.numberOfResults}"
 		numberOfPages="${empty properties.numberOfPages ? 7 : properties.numberOfPages}" />
 	<h1>Total Results for ${param.q}: ${resultList.totalResults}</h1>
+	<h2> ${resultList.totalPages} </h2>
+	<h2> ${resultList.pagesToShow} </h2>
 	<ul class="resultList">
 		<c:forEach items="${resultList.resultItems}" var="resultItem"
 			varStatus="loop">
@@ -71,7 +74,7 @@
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
-	<c:if test="${param.currentTab < reultList.totalPages}">
+	<c:if test="${param.currentTab < reultList.pagesToShow}">
 		<a class="gm_tablink"
 			href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab + 1}"/></cq:requestURL>">&gt;
 			Next</a>

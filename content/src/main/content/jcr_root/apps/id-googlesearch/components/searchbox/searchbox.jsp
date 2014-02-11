@@ -20,6 +20,12 @@
  *************************************************************************/
 --%>
 <%@page session="false" %>
+<%@ taglib prefix="infield"
+	uri="http://googlesearch.infield.com/bundles/cq/1.0"%>
+
+<infield:inheritance resource="${resource}" propertyName="resultPage" defaultValue="" />
+
+<h1> Something ${inheritedPropertyValue} </h1>
 
 <form class="search" action="${properties.resultPage}" method="get">
 	<input class="submit_search" type="submit" value="Search" name="Submit">
