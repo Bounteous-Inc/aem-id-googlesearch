@@ -39,9 +39,12 @@ public class GoogleSearchTag extends SimpleTagSupport {
 	@Override
 	public void doTag() throws JspException, IOException {
 		if (this.q.length() > 0 && this.currentTab.length() > 0 && this.numberOfResults > 0 && this.numberOfPages > 0){
-			GoogleSearchService googleService = new GoogleSearchService();
-			ResultList resultList = googleService.getResults(q, currentTab, numberOfResults, numberOfPages);
+			
+			ResultList resultList = new GoogleSearchService()
+			.getResults(q, currentTab, numberOfResults, numberOfPages);
+			
 			LinkedList<ResultItem> resultItems = resultList.getResultItems();
+			
 			getJspContext().setAttribute("resultList",resultList);
 			getJspContext().setAttribute("resultItems",resultItems);
 		}

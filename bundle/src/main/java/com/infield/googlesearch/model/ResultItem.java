@@ -48,8 +48,9 @@ public class ResultItem {
 	/**
 	 * @param cacheId the cacheId to set
 	 */
-	public void setCacheId(String cacheId) {
+	public ResultItem setCacheId(String cacheId) {
 		this.cacheId = cacheId;
+		return this;
 	}
 	/**
 	 * @return the displayLink
@@ -60,8 +61,9 @@ public class ResultItem {
 	/**
 	 * @param displayLink the displayLink to set
 	 */
-	public void setDisplayLink(String displayLink) {
+	public ResultItem setDisplayLink(String displayLink) {
 		this.displayLink = displayLink;
+		return this;
 	}
 	/**
 	 * @return the fileFormat
@@ -72,8 +74,9 @@ public class ResultItem {
 	/**
 	 * @param fileFormat the fileFormat to set
 	 */
-	public void setFileFormat(String fileFormat) {
+	public ResultItem setFileFormat(String fileFormat) {
 		this.fileFormat = fileFormat;
+		return this;
 	}
 	/**
 	 * @return the formattedUrl
@@ -84,8 +87,9 @@ public class ResultItem {
 	/**
 	 * @param formattedUrl the formattedUrl to set
 	 */
-	public void setFormattedUrl(String formattedUrl) {
+	public ResultItem setFormattedUrl(String formattedUrl) {
 		this.formattedUrl = formattedUrl;
+		return this;
 	}
 	/**
 	 * @return the htmlFormattedUrl
@@ -96,8 +100,9 @@ public class ResultItem {
 	/**
 	 * @param htmlFormattedUrl the htmlFormattedUrl to set
 	 */
-	public void setHtmlFormattedUrl(String htmlFormattedUrl) {
+	public ResultItem setHtmlFormattedUrl(String htmlFormattedUrl) {
 		this.htmlFormattedUrl = htmlFormattedUrl;
+		return this;
 	}
 	/**
 	 * @return the htmlSnippet
@@ -108,8 +113,9 @@ public class ResultItem {
 	/**
 	 * @param htmlSnippet the htmlSnippet to set
 	 */
-	public void setHtmlSnippet(String htmlSnippet) {
+	public ResultItem setHtmlSnippet(String htmlSnippet) {
 		this.htmlSnippet = htmlSnippet;
+		return this;
 	}
 	/**
 	 * @return the htmlTitle
@@ -120,8 +126,9 @@ public class ResultItem {
 	/**
 	 * @param htmlTitle the htmlTitle to set
 	 */
-	public void setHtmlTitle(String htmlTitle) {
+	public ResultItem setHtmlTitle(String htmlTitle) {
 		this.htmlTitle = htmlTitle;
+		return this;
 	}
 	/**
 	 * @return the kind
@@ -132,8 +139,9 @@ public class ResultItem {
 	/**
 	 * @param kind the kind to set
 	 */
-	public void setKind(String kind) {
+	public ResultItem setKind(String kind) {
 		this.kind = kind;
+		return this;
 	}
 	/**
 	 * @return the labels
@@ -144,8 +152,9 @@ public class ResultItem {
 	/**
 	 * @param labels the labels to set
 	 */
-	public void setLabels(List <String> labels) {
+	public ResultItem setLabels(List <String> labels) {
 		this.labels = labels;
+		return this;
 	}
 	/**
 	 * @return the link
@@ -156,8 +165,9 @@ public class ResultItem {
 	/**
 	 * @param link the link to set
 	 */
-	public void setLink(String link) {
+	public ResultItem setLink(String link) {
 		this.link = link;
+		return this;
 	}
 	/**
 	 * @return the mime
@@ -168,8 +178,9 @@ public class ResultItem {
 	/**
 	 * @param mime the mime to set
 	 */
-	public void setMime(String mime) {
+	public ResultItem setMime(String mime) {
 		this.mime = mime;
+		return this;
 	}
 	/**
 	 * @return the snippet
@@ -180,8 +191,9 @@ public class ResultItem {
 	/**
 	 * @param snippet the snippet to set
 	 */
-	public void setSnippet(String snippet) {
+	public ResultItem setSnippet(String snippet) {
 		this.snippet = snippet;
+		return this;
 	}
 	/**
 	 * @return the title
@@ -192,8 +204,9 @@ public class ResultItem {
 	/**
 	 * @param title the title to set
 	 */
-	public void setTitle(String title) {
+	public ResultItem setTitle(String title) {
 		this.title = title;
+		return this;
 	}	
 	
 

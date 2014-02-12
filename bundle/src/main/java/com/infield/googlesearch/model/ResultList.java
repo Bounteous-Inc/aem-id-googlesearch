@@ -47,8 +47,9 @@ public class ResultList {
 	 * Sets the result Item list
 	 * @param resultItems
 	 */
-	public void setResultItems(LinkedList<ResultItem> resultItems) {
+	public ResultList setResultItems(LinkedList<ResultItem> resultItems) {
 		this.resultItems = resultItems;
+		return this;
 	}
 	
 	/**
@@ -63,8 +64,9 @@ public class ResultList {
 	 * Sets the formatted search time
 	 * @param formattedSearchTime
 	 */
-	public void setFormattedSearchTime(String formattedSearchTime){
+	public ResultList setFormattedSearchTime(String formattedSearchTime){
 		this.formattedSearchTime = formattedSearchTime;
+		return this;
 	}
 	
 	/**
@@ -79,8 +81,9 @@ public class ResultList {
 	 * Sets the search Time
 	 * @param searchTime
 	 */
-	public void setSearchTime(double searchTime){
+	public ResultList setSearchTime(double searchTime){
 		this.searchTime = searchTime;
+		return this;
 	}
 	
 	/**
@@ -95,8 +98,9 @@ public class ResultList {
 	 * Sets the formatted total result count
 	 * @param formattedTotalResults
 	 */
-	public void setFormattedTotalResults(String formattedTotalResults){
+	public ResultList setFormattedTotalResults(String formattedTotalResults){
 		this.formattedTotalResults = formattedTotalResults;
+		return this;
 	}
 	
 	/**
@@ -111,8 +115,9 @@ public class ResultList {
 	 * Sets the total result count
 	 * @param totalResults
 	 */
-	public void setTotalResults(long totalResults){
+	public ResultList setTotalResults(long totalResults){
 		this.totalResults = totalResults;
+		return this;
 	}
 
 	/**
@@ -125,8 +130,9 @@ public class ResultList {
 	/**
 	 * @param totalPages the totalPages to set
 	 */
-	public void setTotalPages(long totalPages) {
+	public ResultList setTotalPages(long totalPages) {
 		this.totalPages = totalPages;
+		return this;
 	}
 
 	/**
@@ -139,8 +145,9 @@ public class ResultList {
 	/**
 	 * @param startPage the startPage to set
 	 */
-	public void setStartPage(long startPage) {
+	public ResultList setStartPage(long startPage) {
 		this.startPage = startPage;
+		return this;
 	}
 
 	/**
@@ -153,8 +160,9 @@ public class ResultList {
 	/**
 	 * @param endPage the endPage to set
 	 */
-	public void setEndPage(long endPage) {
+	public ResultList setEndPage(long endPage) {
 		this.endPage = endPage;
+		return this;
 	}
 
 	/**
@@ -167,8 +175,9 @@ public class ResultList {
 	/**
 	 * @param currentTab the currentTab to set
 	 */
-	public void setCurrentTab(long currentTab) {
+	public ResultList setCurrentTab(long currentTab) {
 		this.currentTab = currentTab;
+		return this;
 	}
 	
 	/**
@@ -178,8 +187,8 @@ public class ResultList {
 		return pagesToShow;
 	}
 
-	public void setPagesToShow(long pagesToShow) {
+	public ResultList setPagesToShow(long pagesToShow) {
 		this.pagesToShow = pagesToShow;
-		
+		return this;
 	}
 }
