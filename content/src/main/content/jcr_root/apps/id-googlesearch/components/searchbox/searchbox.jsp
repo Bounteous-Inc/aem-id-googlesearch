@@ -23,12 +23,14 @@
 <%@ taglib prefix="funk" uri="http://functions.infield.com/bundles/cq/1.0"%>
 <%@ taglib prefix="infield"
 	uri="http://googlesearch.infield.com/bundles/cq/1.0"%>
+<cq:includeClientLib
+	categories="infield.components.id-googlesearch.searchbox" />
 
 <infield:inheritance resource="${resource}" propertyName="resultPage" defaultValue="" />
 
 <form class="search" action="${inheritedPropertyValue}.html" method="get">
-	<input class="submit_search" type="submit" value="${funk:Translate(currentPage, slingRequest, 'Search')}" name="Submit">
 	<input type="text" class="input" name="q" value="${funk:Translate(currentPage, slingRequest, 'Search')}" onfocus="if(this.value=='${funk:Translate(currentPage, slingRequest, 'Search')}')this.value='';" onblur="if(this.value.trim()=='')this.value='${funk:Translate(currentPage, slingRequest, 'Search')}';" />
+	<input class="submit_search" type="submit" value="${funk:Translate(currentPage, slingRequest, 'Search')}" name="Submit">
 	<input type="hidden" name="currentTab" value="1" />
 	<script>String.prototype.trim=function(){return(this.replace(/(^\s+)|(\s+$)/g, ""))}</script>
 </form>
