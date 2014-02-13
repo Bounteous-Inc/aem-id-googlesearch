@@ -142,6 +142,12 @@
             <version>5.6.2</version>
             <scope>provided</scope>
             </dependency>
+            <dependency>
+            <groupId>com.day.cq</groupId>
+            <artifactId>cq-i18n</artifactId>
+            <version>5.4.2</version>
+            <scope>provided</scope>
+            </dependency>
 	</dependencies>
 
 	<!-- ====================================================================== -->
@@ -174,6 +180,7 @@
 					<instructions>
 						<Include-Resource>
                             META-INF/id-googlesearch-1.0.tld=${project.build.outputDirectory}/META-INF/id-googlesearch-1.0.tld,
+                            META-INF/id-funk-1.0.tld=${project.build.outputDirectory}/META-INF/id-funk-1.0.tld,
                             {maven-resources}
                         </Include-Resource>
 						<Import-Package>
