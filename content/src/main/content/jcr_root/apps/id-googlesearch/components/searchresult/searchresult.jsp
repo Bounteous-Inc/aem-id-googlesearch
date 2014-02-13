@@ -23,6 +23,7 @@
 
 <%@ taglib prefix="infield"
 	uri="http://googlesearch.infield.com/bundles/cq/1.0"%>
+<%@ taglib prefix="funk" uri="http://functions.infield.com/bundles/cq/1.0"%>	
 <cq:includeClientLib
 	categories="infield.components.id-googlesearch.searchresult" />
 
@@ -30,7 +31,7 @@
 	<div class="over_ipup_bl">
 		<form action="<cq:requestURL><cq:removeParam name="q"/><cq:removeParam name="currentTab"/></cq:requestURL>">
 			<input class="inpute_search" type=text id="q" name="q" value="${param.q}">
-			<input class="submit_search" type="submit" value="Search" name="Submit">
+			<input class="submit_search" type="submit" value="${funk:Translate(currentPage, slingRequest, 'Search')}" name="Submit">
 		</form>
 	</div>
 </c:if>
@@ -40,9 +41,7 @@
 		currentTab="${empty param.currentTab ? 1 : param.currentTab}"
 		numberOfResults="${empty properties.numberOfResults ? 10 : properties.numberOfResults}"
 		numberOfPages="${empty properties.numberOfPages ? 7 : properties.numberOfPages}" />
-	<h1>Total Results for ${param.q}: ${resultList.totalResults}</h1>
-	<h2> ${resultList.totalPages} </h2>
-	<h2> ${resultList.pagesToShow} </h2>
+	<c:if test="${resultList.totalResults > 0}"><h1>${resultList.totalResults} ${funk:Translate(currentPage, slingRequest, 'results for')} ${param.q}</h1></c:if>
 	<ul class="resultList">
 		<c:forEach items="${resultList.resultItems}" var="resultItem"
 			varStatus="loop">
@@ -59,8 +58,9 @@
 	<c:if test="${param.currentTab > 1}">
 		<a class="gm_tablink"
 			href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab -1}"/></cq:requestURL>">&lt;
-			Previous</a>
+			${funk:Translate(currentPage, slingRequest, 'Previous')}</a>
 	</c:if>
+	
 	<c:forEach begin="${resultList.startPage}" end="${resultList.endPage}"
 		varStatus="loop">
 		<c:choose>
@@ -74,10 +74,12 @@
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
-	<c:if test="${param.currentTab < reultList.pagesToShow}">
+	
+	
+	<c:if test="${param.currentTab < resultList.pagesToShow}">
 		<a class="gm_tablink"
 			href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab + 1}"/></cq:requestURL>">&gt;
-			Next</a>
+			${funk:Translate(currentPage, slingRequest, 'Next')}</a>
 	</c:if>
 </div>
 
