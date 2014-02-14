@@ -122,7 +122,6 @@
 		It would be best if you proxied the Adobe repository using a Maven Repository 
 		Manager. Once you do that, remove these sections. -->
 	<repositories>
-		
 		<repository>
 			<id>adobe</id>
 			<name>Adobe Public Repository</name>
@@ -133,7 +132,6 @@
 			<id>google-api-services</id>
 			<url>https://oss.sonatype.org/content/repositories/releases/</url>
 		</repository>
-
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>

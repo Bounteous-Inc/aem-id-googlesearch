@@ -20,8 +20,6 @@
 package com.infield.googlesearch;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.security.GeneralSecurityException;
 import java.util.Dictionary;
 import java.util.LinkedList;
@@ -75,7 +73,7 @@ import com.infield.googlesearch.model.ResultList;
 			label = "API Key",
 			name = "cse.api.key", 
 			value = "", 
-			description = "API Key for the registered developer project for your application.")
+			description = "API Key for the registered project for your application.")
 	,
 	@Property(
 			label = "Context",
@@ -99,6 +97,7 @@ public class GoogleSearchService  {
 	private LinkedList<ResultItem> resultItems;
 
 	static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1;
 
 
@@ -177,7 +176,7 @@ public class GoogleSearchService  {
 				.setEndPage(getEndPage(currentPage))
 				.setCurrentTab(currentPage);
 
-				// this ternary is used to  
+				//TODO: Labels and Images 
 				List<Result> searchResults = results.getItems() != null ? results.getItems() : new LinkedList<Result>();
 
 				for (Result searchResult : searchResults){

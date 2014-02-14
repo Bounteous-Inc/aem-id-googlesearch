@@ -125,29 +125,29 @@
 			<version>2.2.1-b03</version>
 		</dependency>
 		<dependency>
-             <groupId>com.day.cq</groupId>
-            <artifactId>cq-commons</artifactId>
-            <version>5.6.2</version>
-            <scope>provided</scope>
-            </dependency>
-            <dependency>
-            <groupId>com.day.cq.wcm</groupId>
-            <artifactId>cq-wcm-commons</artifactId>
-            <version>5.6.2</version>
-            <scope>provided</scope>
-            </dependency>
-            <dependency>
-            <groupId>com.day.cq.wcm</groupId>
-            <artifactId>cq-wcm-api</artifactId>
-            <version>5.6.2</version>
-            <scope>provided</scope>
-            </dependency>
-            <dependency>
-            <groupId>com.day.cq</groupId>
-            <artifactId>cq-i18n</artifactId>
-            <version>5.4.2</version>
-            <scope>provided</scope>
-            </dependency>
+			<groupId>com.day.cq</groupId>
+			<artifactId>cq-commons</artifactId>
+			<version>5.6.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.day.cq.wcm</groupId>
+			<artifactId>cq-wcm-commons</artifactId>
+			<version>5.6.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.day.cq.wcm</groupId>
+			<artifactId>cq-wcm-api</artifactId>
+			<version>5.6.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.day.cq</groupId>
+			<artifactId>cq-i18n</artifactId>
+			<version>5.4.2</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<!-- ====================================================================== -->
@@ -156,10 +156,10 @@
 	<build>
 		<plugins>
 			<plugin>
-	             <groupId>org.apache.maven.plugins</groupId>
-	             <artifactId>maven-resources-plugin</artifactId>
-	             <version>2.5</version>
-	         </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+
+			</plugin>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-scr-plugin</artifactId>
@@ -179,10 +179,10 @@
 				<configuration>
 					<instructions>
 						<Include-Resource>
-                            META-INF/id-googlesearch-1.0.tld=${project.build.outputDirectory}/META-INF/id-googlesearch-1.0.tld,
-                            META-INF/id-funk-1.0.tld=${project.build.outputDirectory}/META-INF/id-funk-1.0.tld,
-                            {maven-resources}
-                        </Include-Resource>
+							META-INF/id-googlesearch-1.0.tld=${project.build.outputDirectory}/META-INF/id-googlesearch-1.0.tld,
+							META-INF/id-funk-1.0.tld=${project.build.outputDirectory}/META-INF/id-funk-1.0.tld,
+							{maven-resources}
+						</Include-Resource>
 						<Import-Package>
 							com.google.api.client.googleapis.*,
 							com.google.api.client.*,
