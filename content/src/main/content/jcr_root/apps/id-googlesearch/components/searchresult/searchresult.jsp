@@ -27,14 +27,13 @@
 <cq:includeClientLib
 	categories="infield.components.id-googlesearch.searchresult" />
 
-<c:if test="${not empty properties.showSearchBox}">
-	<div class="over_ipup_bl">
-		<form action="<cq:requestURL><cq:removeParam name="q"/><cq:removeParam name="currentTab"/></cq:requestURL>">
-			<input class="inpute_search" type=text id="q" name="q" value="${param.q}">
-			<input class="submit_search" type="submit" value="${funk:Translate(currentPage, slingRequest, 'Search')}" name="Submit">
-		</form>
-	</div>
-</c:if>
+<div class="inner_search_form">
+	<form action="<cq:requestURL><cq:removeParam name="q"/><cq:removeParam name="currentTab"/></cq:requestURL>">
+		<input class="inpute_search" type=text id="q" name="q" value="${param.q}">
+		<input class="submit_search" type="submit" value="${funk:Translate(currentPage, slingRequest, 'Search')}" name="Submit">
+		<input type="hidden" name="currentTab" value="1" />
+	</form>
+</div>
 
 <c:if test="${not empty param.q}">
 	<infield:customsearch q="${param.q}"
@@ -50,11 +49,9 @@
 				<p>${resultItem.htmlSnippet}</p>
 				<p>${resultItem.htmlFormattedUrl}</p></li>
 		</c:forEach>
-</c:if>
-
-</ul>
-
-<div id="pagination" class="pagination">
+	</ul>
+	
+	<div id="pagination" class="pagination">
 	<c:if test="${param.currentTab > 1}">
 		<a class="gm_tablink"
 			href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab -1}"/></cq:requestURL>">&lt;
@@ -82,7 +79,5 @@
 			${funk:Translate(currentPage, slingRequest, 'Next')}</a>
 	</c:if>
 </div>
-
-
-
-
+	
+</c:if>

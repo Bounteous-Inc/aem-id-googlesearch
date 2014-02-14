@@ -17,6 +17,10 @@
  * 
  *************************************************************************/
  
+.inner_search_form {
+	margin-bottom: 20px;
+}
+
 ul.resultList {
 	list-style: none;
 	padding-top: 10px;
@@ -37,4 +41,7 @@ li.resultItem a {
 
 #pagination .active_page{
 	color:#000;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: default;
 }
