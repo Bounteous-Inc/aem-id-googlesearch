@@ -29,8 +29,13 @@
 <infield:inheritance resource="${resource}" propertyName="resultPage" defaultValue="" />
 
 <form class="search" action="${inheritedPropertyValue}.html" method="get">
-	<input type="text" class="input" name="q" value="${funk:Translate(currentPage, slingRequest, 'Search')}" onfocus="if(this.value=='${funk:Translate(currentPage, slingRequest, 'Search')}')this.value='';" onblur="if(this.value.trim()=='')this.value='${funk:Translate(currentPage, slingRequest, 'Search')}';" />
-	<input class="submit_search" type="submit" value="${funk:Translate(currentPage, slingRequest, 'Search')}" name="Submit">
+	<fieldset>
+         <div class="input_box">
+             <label for="h-search-field" style="display: none;">${funk:Translate(currentPage, slingRequest, 'Search')}</label>
+             <input class="cq-auto-clear" type="text" value="${funk:Translate(currentPage, slingRequest, 'Search')}" name="q" id="h-search-field"/>
+         </div>
+         <input type="button" onclick="this.form.submit();" class="btn"/>
+     </fieldset>
 	<input type="hidden" name="currentTab" value="1" />
 	<script>String.prototype.trim=function(){return(this.replace(/(^\s+)|(\s+$)/g, ""))}</script>
 </form>
