@@ -27,20 +27,25 @@
 <cq:includeClientLib
 	categories="infield.components.id-googlesearch.searchresult" />
 
+<c:set var="searchParam">
+	<cq:text value="${param.q}" escapeXml="true" />
+</c:set>
+
 <div class="inner_search_form">
 	<form action="<cq:requestURL><cq:removeParam name="q"/><cq:removeParam name="currentTab"/></cq:requestURL>">
-		<input class="inpute_search" type=text id="q" name="q" value="${param.q}">
+		<input class="inpute_search" type=text id="q" name="q" value="${searchParam}">
 		<input class="submit_search" type="submit" value="${funk:Translate(currentPage, slingRequest, 'Search')}" name="Submit">
 		<input type="hidden" name="currentTab" value="1" />
 	</form>
 </div>
 
-<c:if test="${not empty param.q}">
-	<infield:customsearch q="${param.q}"
+<c:if test="${not empty searchParam}">
+	<infield:customsearch q="${searchParam}"
 		currentTab="${empty param.currentTab ? 1 : param.currentTab}"
 		numberOfResults="${empty properties.numberOfResults ? 10 : properties.numberOfResults}"
+		request="${slingRequest}"
 		numberOfPages="${empty properties.numberOfPages ? 7 : properties.numberOfPages}" />
-	<c:if test="${resultList.totalResults > 0}"><h1>${resultList.totalResults} ${funk:Translate(currentPage, slingRequest, 'results for')} ${param.q}</h1></c:if>
+	<c:if test="${resultList.totalResults > 0}"><h1>${resultList.totalResults} ${funk:Translate(currentPage, slingRequest, 'results for')} ${searchParam}</h1></c:if>
 	<ul class="resultList">
 		<c:forEach items="${resultList.resultItems}" var="resultItem"
 			varStatus="loop">

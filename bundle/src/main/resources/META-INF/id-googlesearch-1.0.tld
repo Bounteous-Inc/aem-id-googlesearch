@@ -48,6 +48,11 @@
 	      <required>true</required>
 	      <rtexprvalue>true</rtexprvalue>
 	    </attribute>
+	    <attribute>
+	      <name>request</name>
+	      <required>true</required>
+	      <rtexprvalue>true</rtexprvalue>
+	    </attribute>	    
     </tag>
     <tag>
 		<name>inheritance</name>

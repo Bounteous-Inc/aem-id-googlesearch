@@ -148,6 +148,12 @@
 			<version>5.4.2</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+		    <groupId>com.adobe.granite</groupId>
+		    <artifactId>com.adobe.granite.xssprotection</artifactId>
+		    <version>5.5.22</version>
+		    <scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<!-- ====================================================================== -->

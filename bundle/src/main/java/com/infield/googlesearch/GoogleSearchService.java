@@ -122,7 +122,6 @@ public class GoogleSearchService  {
 		this.num = num;
 		this.pagesToShow = pagesToShow;
 
-		//TODO: do XSS protection on Q
 		ResultList resultList = new ResultList().setResultItems(new LinkedList<ResultItem>());
 
 		this.pagesLeft = (this.pagesToShow - (pagesToShow % 2)) / 2;

@@ -20,9 +20,17 @@
 package com.infield.googlesearch.taglib;
 
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+
 import java.io.IOException;
 import java.util.LinkedList;
+
 import javax.servlet.jsp.JspException;
+
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+
+import com.adobe.granite.xss.XSSAPI;
 import com.infield.googlesearch.GoogleSearchService;
 import com.infield.googlesearch.model.ResultItem;
 import com.infield.googlesearch.model.ResultList;
@@ -34,17 +42,22 @@ public class GoogleSearchTag extends SimpleTagSupport {
 	private String currentTab;
 	private long numberOfResults;
 	private long numberOfPages;
-	
-	
+	private SlingHttpServletRequest request;
+
 	@Override
 	public void doTag() throws JspException, IOException {
+		
+		ResourceResolver resourceResolver = request.getResourceResolver();
+		XSSAPI xssAPI = resourceResolver.adaptTo(XSSAPI.class);
+		String q = xssAPI.encodeForHTML(this.q);
+		
 		if (this.q.length() > 0 && this.currentTab.length() > 0 && this.numberOfResults > 0 && this.numberOfPages > 0){
 			
 			ResultList resultList = new GoogleSearchService()
 			.getResults(q, currentTab, numberOfResults, numberOfPages);
 			
 			LinkedList<ResultItem> resultItems = resultList.getResultItems();
-			
+
 			getJspContext().setAttribute("resultList",resultList);
 			getJspContext().setAttribute("resultItems",resultItems);
 		}
@@ -105,4 +118,20 @@ public class GoogleSearchTag extends SimpleTagSupport {
 	public void setNumberOfPages(long numberOfPages) {
 		this.numberOfPages = numberOfPages;
 	}
+	
+	/**
+	 * 
+	 * @return the request
+	 */
+	public SlingHttpServletRequest getRequest() {
+		return request;
+	}
+
+	/**
+	 * 
+	 * @param request set request
+	 */
+	public void setRequest(SlingHttpServletRequest request) {
+		this.request = request;
+	}	
 }
