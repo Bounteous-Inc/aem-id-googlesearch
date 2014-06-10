@@ -1,1 +1,8 @@
 */target/*
+.project
+.metadata/*
+*/.settings/*
+.classpath
+.settings/*
+bundle/.gitignore
+content/.gitignore
