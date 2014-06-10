@@ -45,44 +45,50 @@
 		numberOfResults="${empty properties.numberOfResults ? 10 : properties.numberOfResults}"
 		request="${slingRequest}"
 		numberOfPages="${empty properties.numberOfPages ? 7 : properties.numberOfPages}" />
-	<c:if test="${resultList.totalResults > 0}"><h1>${resultList.totalResults} ${funk:Translate(currentPage, slingRequest, 'results for')} ${searchParam}</h1></c:if>
-	<ul class="resultList">
-		<c:forEach items="${resultList.resultItems}" var="resultItem"
-			varStatus="loop">
-			<li class="resultItem"><a href="${resultItem.link}"
-				title="${resultItem.title}">${resultItem.title}</a><br />
-				<p>${resultItem.htmlSnippet}</p>
-				<p>${resultItem.htmlFormattedUrl}</p></li>
-		</c:forEach>
-	</ul>
+		
+	<c:if test="${resultList.totalResults > 0}">
 	
-	<div id="pagination" class="pagination">
-	<c:if test="${param.currentTab > 1}">
-		<a class="gm_tablink"
-			href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab -1}"/></cq:requestURL>">&lt;
-			${funk:Translate(currentPage, slingRequest, 'Previous')}</a>
-	</c:if>
-	
-	<c:forEach begin="${resultList.startPage}" end="${resultList.endPage}"
-		varStatus="loop">
-		<c:choose>
-			<c:when test="${param.currentTab == loop.index}">
-				<a class="gm_tablink gm_tablink_num active_page" href="#"
-					onClick="return false;" />${loop.index}</a>
-			</c:when>
-			<c:otherwise>
+		<h1>${resultList.totalResults} ${funk:Translate(currentPage, slingRequest, 'results for')} ${searchParam}</h1>
+		<ul class="resultList">
+			<c:forEach items="${resultList.resultItems}" var="resultItem" varStatus="loop">
+				<li class="resultItem"><a href="${resultItem.link}"
+					title="${resultItem.title}">${resultItem.title}</a><br />
+					<p>${resultItem.htmlSnippet}</p>
+					<p>${resultItem.htmlFormattedUrl}</p></li>
+			</c:forEach>
+		</ul>
+		
+		<div id="pagination" class="pagination">
+			<c:if test="${param.currentTab > 1}">
 				<a class="gm_tablink"
-					href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${loop.index}"/></cq:requestURL>">${loop.index}</a>
-			</c:otherwise>
-		</c:choose>
-	</c:forEach>
-	
-	
-	<c:if test="${param.currentTab < resultList.pagesToShow}">
-		<a class="gm_tablink"
-			href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab + 1}"/></cq:requestURL>">&gt;
-			${funk:Translate(currentPage, slingRequest, 'Next')}</a>
+					href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab -1}"/></cq:requestURL>">&lt;
+					${funk:Translate(currentPage, slingRequest, 'Previous')}</a>
+			</c:if>
+			
+			<c:forEach begin="${resultList.startPage}" end="${resultList.endPage}" varStatus="loop">
+				<c:choose>
+					<c:when test="${param.currentTab == loop.index}">
+						<a class="gm_tablink gm_tablink_num active_page" href="#"
+							onClick="return false;" />${loop.index}</a>
+					</c:when>
+					<c:otherwise>
+						<a class="gm_tablink"
+							href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${loop.index}"/></cq:requestURL>">${loop.index}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+			<c:if test="${param.currentTab < resultList.pagesToShow}">
+				<a class="gm_tablink"
+					href="<cq:requestURL><cq:removeParam name="currentTab"/><cq:addParam name="currentTab" value="${param.currentTab + 1}"/></cq:requestURL>">&gt;
+					${funk:Translate(currentPage, slingRequest, 'Next')}</a>
+			</c:if>
+		</div>
+
 	</c:if>
-</div>
+
+	<c:if test="${resultList.totalResults == 0}">
+		<h1>${funk:Translate(currentPage, slingRequest, 'No results for')} ${searchParam}</h1>
+	</c:if>
 	
 </c:if>
