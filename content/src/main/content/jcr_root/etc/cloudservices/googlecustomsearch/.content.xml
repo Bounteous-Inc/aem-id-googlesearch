@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2011-10-05T18:26:42.526+02:00"
+        cq:lastModifiedBy="admin"
+        cq:template="/libs/cq/cloudserviceconfigs/templates/servicepage"
+        jcr:description="Description Lead Management on Cloud"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Google Custom Search"
+        sling:resourceType="cq/cloudserviceconfigs/components/servicepage"
+        componentReference="mcm/id-googlesearch/components/googlesearch"
+        description="Helps to use Custom Search API provided by Google"
+        descriptionExtended="Helps to use Custom Search API provided by Google"
+        inclusionRank="{Long}100"
+        ranking="40"
+        serviceUrl="http://www.infielddesign.com"
+        showOnDashboard="{Boolean}true"
+        thumbnailPath="/apps/mcm/id-googlesearch/templates/GoogleSearchTemplate/gicon.ico"/>
+</jcr:root>

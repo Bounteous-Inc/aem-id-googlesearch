@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
     <filter root="/apps/id-googlesearch"/>
+    <filter root="/apps/mcm/id-googlesearch"/>
+    <filter root="/etc/cloudservices/googlecustomsearch"/>
 </workspaceFilter>

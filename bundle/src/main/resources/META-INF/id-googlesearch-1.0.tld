@@ -52,7 +52,12 @@
 	      <name>request</name>
 	      <required>true</required>
 	      <rtexprvalue>true</rtexprvalue>
-	    </attribute>	    
+	    </attribute>
+        <attribute>
+            <name>currentPage</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
 		<name>inheritance</name>

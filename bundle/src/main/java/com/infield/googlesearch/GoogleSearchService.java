@@ -21,22 +21,11 @@ package com.infield.googlesearch;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.Dictionary;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.commons.osgi.PropertiesUtil;
-import org.apache.sling.jcr.api.SlingRepository;
-import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.osgi.framework.Constants;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -49,45 +38,13 @@ import com.google.api.services.customsearch.model.Search.SearchInformation;
 import com.infield.googlesearch.model.ResultItem;
 import com.infield.googlesearch.model.ResultList;
 
-
-@Component(
-		label = "Google Custom Search Service", 
-		description = "Service used to call Google Custom Services.",
-		immediate = true, 
-		metatype = true)
-@Service(GoogleSearchService.class)
-@Properties({
-	@Property(name = Constants.SERVICE_VENDOR, value = "Infield"),
-	@Property(name = Constants.SERVICE_DESCRIPTION, value = "Google Custom Search service")
-	, 
-	@Property(
-			label = "Application Name", 
-			name = "cse.application.name", 
-			value = "",
-			description = "Be sure to specify the name of your application. "
-					+ "If the application name is null or blank, the application "
-					+ "will log a warning. Suggested format is "
-					+ "'MyCompany-ProductName/1.0'.")
-	,
-	@Property(
-			label = "API Key",
-			name = "cse.api.key", 
-			value = "", 
-			description = "API Key for the registered project for your application.")
-	,
-	@Property(
-			label = "Context",
-			name = "cse.cx",
-			value = "", 
-			description = "The main search engine ID to scope the search query")
-})
 public class GoogleSearchService  {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	private static String apikey = "";
-	private static String applicationname = "";
-	private static String cx = "";
+	private String apikey = "";
+    private String applicationname = "";
+	private String cx = "";
 	private long num = 7;
 	private long pagesToShow = 10;
 
@@ -100,22 +57,11 @@ public class GoogleSearchService  {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1;
 
-
-	@Reference
-	private SlingRepository repository;
-
-	@Activate
-	protected void activate(ComponentContext componentContext){
-		configure(componentContext.getProperties());
-	}
-
-
-	protected void configure(Dictionary<?, ?> properties) {
-		GoogleSearchService.apikey = PropertiesUtil.toString(properties.get("cse.api.key"), apikey);
-		GoogleSearchService.applicationname = PropertiesUtil.toString(properties.get("cse.application.name"), applicationname);
-		GoogleSearchService.cx = PropertiesUtil.toString(properties.get("cse.cx"),cx);
-	}
-
+    public GoogleSearchService(String apikey, String applicationname, String cx) {
+        this.apikey = apikey;
+        this.applicationname = applicationname;
+        this.cx = cx;
+    }
 
 	public ResultList getResults(String q, String currentTab, long num, long pagesToShow) {
 

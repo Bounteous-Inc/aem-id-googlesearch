@@ -6,3 +6,11 @@
 .settings/*
 bundle/.gitignore
 content/.gitignore
+
+/*.zip
+out/*
+*.iml
+*.ipr
+*.iws
+build/*
+.idea*

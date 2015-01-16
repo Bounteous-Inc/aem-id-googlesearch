@@ -44,7 +44,8 @@
 		currentTab="${empty param.currentTab ? 1 : param.currentTab}"
 		numberOfResults="${empty properties.numberOfResults ? 10 : properties.numberOfResults}"
 		request="${slingRequest}"
-		numberOfPages="${empty properties.numberOfPages ? 7 : properties.numberOfPages}" />
+		numberOfPages="${empty properties.numberOfPages ? 7 : properties.numberOfPages}"
+        currentPage="${currentPage}" />
 		
 	<c:if test="${resultList.totalResults > 0}">
 	
