@@ -19,20 +19,6 @@
  *
  *************************************************************************/
 --%>
-<%@page session="false"%>
-<%--
-    Open configuration dialog if the either of these properties are blank "appname" or "apikey" 
-    or "contextnumber
-    --%>
-<script type="text/javascript">
-
-    <% if ( !properties.get("isConnected",  false)) {
-		String encodedPath = xssAPI.encodeForJSString(resource.getPath());
-      %>
-    CQ.WCM.onEditableReady("<%= encodedPath %>", function(editable){
-        CQ.wcm.EditBase.showDialog(editable);
-    }, this);
-    <% } else {%>
-    $CQ(".when-config-successful").show();
-    <% } %>
-</script> 
+<%@page session="false" import="com.day.cq.wcm.api.WCMMode" %>
+<cq:includeClientLib categories="cq.widgets"/>
+<cq:includeClientLib categories="cq.id.google"/>

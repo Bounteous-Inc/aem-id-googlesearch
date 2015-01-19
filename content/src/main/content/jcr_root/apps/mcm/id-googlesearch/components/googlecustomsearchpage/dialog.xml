@@ -17,24 +17,61 @@
                             fieldDescription="Be sure to specify the name of your application. If the application name is null or blank, the application will log a warning. Suggested format is 'MyCompany-ProductName/1.0'. "
                             fieldLabel="Application Name"
                             name="./appname"
-                            xtype="textfield"/>
+                            xtype="textfield">
+                            <listeners
+                                jcr:primaryType="nt:unstructured"
+                                change="function(comp) {CQ.cloudservices.getEditOk().disable();}"/>
+                        </applicationname>
                         <apikey
                             jcr:primaryType="cq:Widget"
                             allowBlank="{Boolean}false"
                             fieldDescription="API Key for the registered project for your application. "
                             fieldLabel="API Key"
                             name="./apikey"
-                            xtype="textfield"/>
+                            xtype="textfield">
+                            <listeners
+                                jcr:primaryType="nt:unstructured"
+                                change="function(comp) {CQ.cloudservices.getEditOk().disable();}"/>
+                        </apikey>
                         <contextnumber
                             jcr:primaryType="cq:Widget"
                             allowBlank="{Boolean}false"
                             fieldDescription="The main search engine ID to scope the search query"
                             fieldLabel="Context Number"
                             name="./cx"
-                            xtype="textfield"/>
+                            xtype="textfield">
+                            <listeners
+                                jcr:primaryType="nt:unstructured"
+                                change="function(comp) {CQ.cloudservices.getEditOk().disable();}"/>
+                        </contextnumber>
+                        <btnpanel
+                            jcr:primaryType="cq:Widget"
+                            border="{Boolean}false"
+                            xtype="panel">
+                            <items jcr:primaryType="cq:WidgetCollection">
+                                <connectbutton
+                                    jcr:primaryType="cq:Widget"
+                                    localName="connectButton"
+                                    style="float:right;"
+                                    text="Connect to Google Search API"
+                                    xtype="button">
+                                    <listeners
+                                        jcr:primaryType="nt:unstructured"
+                                        click="function(comp, evt) {var dialog = this.findParentByType('dialog'); CQ.google.restAPI.connect(dialog); }"/>
+                                </connectbutton>
+                            </items>
+                        </btnpanel>
+                        <isConnected
+                            jcr:primaryType="cq:Widget"
+                            defaultValue="{Boolean}false"
+                            name="./isConnected"
+                            xtype="hidden"/>
                     </items>
                 </basic>
             </items>
         </tabs>
     </items>
+    <listeners
+        jcr:primaryType="nt:unstructured"
+        loadcontent="function(comp) { var dialog = comp; var path = CQ.shared.HTTP.getPath(); CQ.google.restAPI.loadContentHandler(dialog); return true}"/>
 </jcr:root>

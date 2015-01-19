@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * @author Gaetan Marmasse <gaetan@infielddesign.com>
- * 
+ *
  *************************************************************************/
 
 package com.infield.googlesearch;
@@ -38,24 +38,24 @@ import com.google.api.services.customsearch.model.Search.SearchInformation;
 import com.infield.googlesearch.model.ResultItem;
 import com.infield.googlesearch.model.ResultList;
 
-public class GoogleSearchService  {
+public class GoogleSearchService {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
-	private String apikey = "";
+    private String apikey = "";
     private String applicationname = "";
-	private String cx = "";
-	private long num = 7;
-	private long pagesToShow = 10;
+    private String cx = "";
+    private long num = 7;
+    private long pagesToShow = 10;
 
-	private Long pagesRight;
-	private Long pagesLeft;
-	private Customsearch customsearch;
-	private LinkedList<ResultItem> resultItems;
+    private Long pagesRight;
+    private Long pagesLeft;
+    private Customsearch customsearch;
+    private LinkedList<ResultItem> resultItems;
 
-	static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1;
+    static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    @SuppressWarnings("unused")
+    private static final long serialVersionUID = 1;
 
     public GoogleSearchService(String apikey, String applicationname, String cx) {
         this.apikey = apikey;
@@ -63,132 +63,131 @@ public class GoogleSearchService  {
         this.cx = cx;
     }
 
-	public ResultList getResults(String q, String currentTab, long num, long pagesToShow) {
+    public ResultList getResults(String q, String currentTab, long num, long pagesToShow) {
 
-		this.num = num;
-		this.pagesToShow = pagesToShow;
+        this.num = num;
+        this.pagesToShow = pagesToShow;
 
-		ResultList resultList = new ResultList().setResultItems(new LinkedList<ResultItem>());
+        ResultList resultList = new ResultList().setResultItems(new LinkedList<ResultItem>());
 
-		this.pagesLeft = (this.pagesToShow - (pagesToShow % 2)) / 2;
-		this.pagesRight = this.pagesToShow - this.pagesLeft;
+        this.pagesLeft = (this.pagesToShow - (pagesToShow % 2)) / 2;
+        this.pagesRight = this.pagesToShow - this.pagesLeft;
 
-		// currentPage starts from 1
-		Long currentPage = Long.valueOf(currentTab);
+        // currentPage starts from 1
+        Long currentPage = Long.valueOf(currentTab);
 
-		Customsearch.Cse.List list;
-		Search results = null;
+        Customsearch.Cse.List list;
+        Search results = null;
 
-		try {
-			customsearch = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, null)
-			.setApplicationName(applicationname)
-			.setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apikey))
-			.build();
+        try {
+            customsearch = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, null)
+                    .setApplicationName(applicationname)
+                    .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(apikey))
+                    .build();
 
-			list = customsearch.cse().list(q)
-					.setNum(this.num)
-					.setStart((this.num * (currentPage - 1)) + 1)
-					.setCx(cx);
+            list = customsearch.cse().list(q)
+                    .setNum(this.num)
+                    .setStart((this.num * (currentPage - 1)) + 1)
+                    .setCx(cx);
 
-			results = list.execute();
+            results = list.execute();
 
-		} catch (IOException e) {
-			log.error(e.getMessage(), e);
-		} catch (GeneralSecurityException e) {
-			log.error(e.getMessage(), e);
-		} finally {
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        } catch (GeneralSecurityException e) {
+            log.error(e.getMessage(), e);
+        } finally {
 
-			SearchInformation searchInformation = (results != null) ? results.getSearchInformation() : null;
+            SearchInformation searchInformation = (results != null) ? results.getSearchInformation() : null;
 
-			this.resultItems = new LinkedList<ResultItem>();
+            this.resultItems = new LinkedList<ResultItem>();
 
 
+            if (searchInformation != null) {
+                Long totalResults = searchInformation.getTotalResults();
 
-			if (searchInformation != null){
-				Long totalResults = searchInformation.getTotalResults();
+                Long totalPages = (totalResults - (totalResults % this.num)) / this.num + 1;
 
-				Long totalPages = (totalResults - (totalResults % this.num))/this.num + 1;
+                this.pagesToShow = (totalPages > this.pagesToShow) ? this.pagesToShow : totalPages;
 
-				this.pagesToShow = (totalPages > this.pagesToShow) ? this.pagesToShow : totalPages;
-				
-				resultList.setTotalPages(totalPages)
-				.setPagesToShow(this.pagesToShow)
-				.setTotalResults(searchInformation.getTotalResults())
-				.setFormattedSearchTime(searchInformation.getFormattedSearchTime())
-				.setFormattedTotalResults(searchInformation.getFormattedTotalResults())
-				.setSearchTime(searchInformation.getSearchTime())
-				.setStartPage(getStartPage(currentPage))
-				.setEndPage(getEndPage(currentPage))
-				.setCurrentTab(currentPage);
+                resultList.setTotalPages(totalPages)
+                        .setPagesToShow(this.pagesToShow)
+                        .setTotalResults(searchInformation.getTotalResults())
+                        .setFormattedSearchTime(searchInformation.getFormattedSearchTime())
+                        .setFormattedTotalResults(searchInformation.getFormattedTotalResults())
+                        .setSearchTime(searchInformation.getSearchTime())
+                        .setStartPage(getStartPage(currentPage))
+                        .setEndPage(getEndPage(currentPage))
+                        .setCurrentTab(currentPage);
 
-				//TODO: Labels and Images 
-				List<Result> searchResults = results.getItems() != null ? results.getItems() : new LinkedList<Result>();
+                //TODO: Labels and Images
+                List<Result> searchResults = results.getItems() != null ? results.getItems() : new LinkedList<Result>();
 
-				for (Result searchResult : searchResults){
-					ResultItem resultItem = new ResultItem();
-					resultItem.setCacheId(searchResult.getCacheId());
-					resultItem.setDisplayLink(searchResult.getDisplayLink());
-					resultItem.setFileFormat(searchResult.getFileFormat());
-					resultItem.setFormattedUrl(searchResult.getFormattedUrl());
-					resultItem.setHtmlFormattedUrl(searchResult.getHtmlFormattedUrl());
-					resultItem.setHtmlSnippet(searchResult.getHtmlSnippet());
-					resultItem.setHtmlTitle(searchResult.getHtmlTitle());
-					resultItem.setKind(searchResult.getKind());
-					//resultItem.setLabels(searchResult.getLabels());
-					resultItem.setLink(searchResult.getLink());
-					resultItem.setMime(searchResult.getMime());
-					resultItem.setSnippet(searchResult.getSnippet());
-					resultItem.setTitle(searchResult.getTitle());
-					resultItems.add(resultItem);
-				}
+                for (Result searchResult : searchResults) {
+                    ResultItem resultItem = new ResultItem();
+                    resultItem.setCacheId(searchResult.getCacheId());
+                    resultItem.setDisplayLink(searchResult.getDisplayLink());
+                    resultItem.setFileFormat(searchResult.getFileFormat());
+                    resultItem.setFormattedUrl(searchResult.getFormattedUrl());
+                    resultItem.setHtmlFormattedUrl(searchResult.getHtmlFormattedUrl());
+                    resultItem.setHtmlSnippet(searchResult.getHtmlSnippet());
+                    resultItem.setHtmlTitle(searchResult.getHtmlTitle());
+                    resultItem.setKind(searchResult.getKind());
+                    //resultItem.setLabels(searchResult.getLabels());
+                    resultItem.setLink(searchResult.getLink());
+                    resultItem.setMime(searchResult.getMime());
+                    resultItem.setSnippet(searchResult.getSnippet());
+                    resultItem.setTitle(searchResult.getTitle());
+                    resultItems.add(resultItem);
+                }
 
-				resultList.setResultItems(resultItems);
+                resultList.setResultItems(resultItems);
 
-			}
-		}
+            }
+        }
 
-		return resultList;
-	}
+        return resultList;
+    }
 
-	private long getEndPage(long currentPage) {
-		
-		this.pagesLeft = (pagesToShow - (pagesToShow % 2)) / 2;
-		this.pagesRight = pagesToShow - this.pagesLeft;
-		
-		long cp = currentPage - 1;
-		long startPage = cp - this.pagesLeft;
-		long endPage = cp + this.pagesRight;
+    private long getEndPage(long currentPage) {
 
-		startPage = (startPage < 0) ? 0 : startPage;
-		endPage = (endPage > pagesToShow - 1) ? pagesToShow - 1: endPage;
+        this.pagesLeft = (pagesToShow - (pagesToShow % 2)) / 2;
+        this.pagesRight = pagesToShow - this.pagesLeft;
 
-		while ((endPage - startPage) < pagesToShow 
-				&& (startPage == 0)
-				&& endPage < pagesToShow - 1) {
-			endPage++;
-		}
+        long cp = currentPage - 1;
+        long startPage = cp - this.pagesLeft;
+        long endPage = cp + this.pagesRight;
 
-		return endPage + 1;
-	}
+        startPage = (startPage < 0) ? 0 : startPage;
+        endPage = (endPage > pagesToShow - 1) ? pagesToShow - 1 : endPage;
 
-	private long getStartPage(long currentPage) {
-		
-		this.pagesLeft = (pagesToShow - (pagesToShow % 2)) / 2;
-		this.pagesRight = pagesToShow - this.pagesLeft;
-		
-		long cp = currentPage - 1;
-		long startPage = cp - this.pagesLeft;
-		long endPage = cp + this.pagesRight;
+        while ((endPage - startPage) < pagesToShow
+                && (startPage == 0)
+                && endPage < pagesToShow - 1) {
+            endPage++;
+        }
 
-		startPage = (startPage < 0) ? 0 : startPage;
-		endPage = (endPage > pagesToShow - 1) ? pagesToShow - 1: endPage;
+        return endPage + 1;
+    }
 
-		while ((endPage - startPage) < pagesToShow 
-				&& (endPage == pagesToShow - 1)
-				&& startPage > 0) {
-			startPage--;
-		}
+    private long getStartPage(long currentPage) {
 
-		return startPage + 1;
-	}
+        this.pagesLeft = (pagesToShow - (pagesToShow % 2)) / 2;
+        this.pagesRight = pagesToShow - this.pagesLeft;
+
+        long cp = currentPage - 1;
+        long startPage = cp - this.pagesLeft;
+        long endPage = cp + this.pagesRight;
+
+        startPage = (startPage < 0) ? 0 : startPage;
+        endPage = (endPage > pagesToShow - 1) ? pagesToShow - 1 : endPage;
+
+        while ((endPage - startPage) < pagesToShow
+                && (endPage == pagesToShow - 1)
+                && startPage > 0) {
+            startPage--;
+        }
+
+        return startPage + 1;
+    }
 }

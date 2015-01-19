@@ -20,12 +20,21 @@
  *************************************************************************/
 --%>
 <%@include file="/libs/cq/cloudserviceconfigs/components/configpage/init.jsp"%>
+<%@include file="/libs/cq/cloudserviceconfigs/components/configpage/hideeditok.jsp"%>
 <%@page session="false" contentType="text/html"
         pageEncoding="utf-8"
-        import="com.day.cq.i18n.I18n"%>
+        import="com.day.cq.i18n.I18n, org.apache.sling.api.resource.ModifiableValueMap"%>
 <%@taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %>
 <sling:defineObjects/>
-<% I18n i18n = new I18n(slingRequest); %>
+<% I18n i18n = new I18n(slingRequest);
+	ModifiableValueMap googleCustomSearchValues = resource.adaptTo(ModifiableValueMap.class);
+	Node googleCustomSearchNode = resource.adaptTo(Node.class);
+	boolean isConnected = googleCustomSearchValues.get("isConnected", false);
+	if(!isConnected) {
+		googleCustomSearchValues.put("isConnected", isConnected);
+    }
+	resource.getResourceResolver().commit();
+%>
 
 <div>
     <div>
